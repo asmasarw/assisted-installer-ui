@@ -28,9 +28,10 @@ import { ClusterWizardFooter, ClusterWizardNavigation } from '../../wizardCompon
 import { useClusterWizardContext } from '../../clusterWizardContext';
 import { DISCONNECTED_OPENSHIFT_VERSION } from './BasicStep';
 
+const opSpecs = getOperatorSpecs(() => undefined, true);
+
 export const DisconnectedReviewStep = () => {
   const { moveBack, disconnectedInfraEnv } = useClusterWizardContext();
-  const opSpecs = getOperatorSpecs(() => undefined);
   const navigate = useNavigate();
 
   return (
@@ -95,6 +96,38 @@ export const DisconnectedReviewStep = () => {
                 </DescriptionListDescription>
               </DescriptionListGroup>
             )}
+            {disconnectedInfraEnv?.proxy?.httpProxy && (
+              <DescriptionListGroup>
+                <DescriptionListTerm>HTTP proxy</DescriptionListTerm>
+                <DescriptionListDescription>
+                  {disconnectedInfraEnv.proxy.httpProxy}
+                </DescriptionListDescription>
+              </DescriptionListGroup>
+            )}
+            {disconnectedInfraEnv?.proxy?.httpsProxy && (
+              <DescriptionListGroup>
+                <DescriptionListTerm>HTTPS proxy</DescriptionListTerm>
+                <DescriptionListDescription>
+                  {disconnectedInfraEnv.proxy.httpsProxy}
+                </DescriptionListDescription>
+              </DescriptionListGroup>
+            )}
+            {disconnectedInfraEnv?.proxy?.noProxy && (
+              <DescriptionListGroup>
+                <DescriptionListTerm>No proxy</DescriptionListTerm>
+                <DescriptionListDescription>
+                  {disconnectedInfraEnv.proxy.noProxy}
+                </DescriptionListDescription>
+              </DescriptionListGroup>
+            )}
+            {disconnectedInfraEnv?.ntpSources && (
+              <DescriptionListGroup>
+                <DescriptionListTerm>NTP sources</DescriptionListTerm>
+                <DescriptionListDescription>
+                  {disconnectedInfraEnv.ntpSources}
+                </DescriptionListDescription>
+              </DescriptionListGroup>
+            )}
             <DescriptionListGroup>
               <DescriptionListTerm>CPU architecture</DescriptionListTerm>
               <DescriptionListDescription>
@@ -103,7 +136,7 @@ export const DisconnectedReviewStep = () => {
             </DescriptionListGroup>
             <DescriptionListGroup>
               <DescriptionListTerm>ISO size</DescriptionListTerm>
-              <DescriptionListDescription>approx. 50+GB</DescriptionListDescription>
+              <DescriptionListDescription>approx. 60+GB</DescriptionListDescription>
             </DescriptionListGroup>
           </DescriptionList>
         </Grid>
